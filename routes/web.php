@@ -38,7 +38,7 @@ Route::post('/logout', function () {
 
 /*
 |--------------------------------------------------------------------------
-| Module 1: User & Permission Management (إدارة المستخدمين والصلاحيات)
+| Module 1: User & Permission Management (إدارة المستخدمين والصلاحيات) Yazan's part
 |--------------------------------------------------------------------------
 */
 Route::prefix('users-module')->name('users.')->group(function () {
@@ -61,7 +61,7 @@ Route::prefix('users-module')->name('users.')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| Module 2: Course & Curriculum Management (إدارة المواد والمقررات)
+| Module 2: Course & Curriculum Management (إدارة المواد والمقررات) Khalil's part
 |--------------------------------------------------------------------------
 */
 Route::prefix('courses-module')->name('courses.')->group(function () {
@@ -87,7 +87,7 @@ Route::prefix('courses-module')->name('courses.')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| Module 3: Student & Section Management (إدارة الطلاب والشعب)
+| Module 3: Student & Section Management (إدارة الطلاب والشعب) Hamza's part
 |--------------------------------------------------------------------------
 */
 Route::prefix('students-module')->name('students.')->group(function () {
@@ -110,7 +110,7 @@ Route::prefix('students-module')->name('students.')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| Module 4: Attendance & Lecture Management (تسجيل الحضور والغياب)
+| Module 4: Attendance & Lecture Management (تسجيل الحضور والغياب) Hussin's part
 |--------------------------------------------------------------------------
 */
 Route::prefix('attendance-module')->name('attendance.')->group(function () {
@@ -133,7 +133,7 @@ Route::prefix('attendance-module')->name('attendance.')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| Module 5: Exams & Grades Management (إدارة الامتحانات والدرجات)
+| Module 5: Exams & Grades Management (إدارة الامتحانات والدرجات) Ward's part
 |--------------------------------------------------------------------------
 */
 Route::prefix('exams-module')->name('exams.')->group(function () {
