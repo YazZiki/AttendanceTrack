@@ -37,7 +37,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 | Module 1: User & Permission Management (إدارة المستخدمين والصلاحيات) Yazan's part
 |--------------------------------------------------------------------------
 */
-Route::prefix('users-module')->name('users.')->group(function () {
+Route::prefix('users-module')->name('users.')->middleware('department:1')->group(function () {
     // Module 1 Dashboard
     Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
     Route::get('/{id}', [UserController::class, 'show'])->name('show');
@@ -49,7 +49,7 @@ Route::prefix('users-module')->name('users.')->group(function () {
 | Module 2: Course & Curriculum Management (إدارة المواد والمقررات) Khalil's part
 |--------------------------------------------------------------------------
 */
-Route::prefix('courses-module')->name('courses.')->group(function () {
+Route::prefix('courses-module')->name('courses.')->middleware('department:2')->group(function () {
     // Module 2 Dashboard
     Route::get('/dashboard', function () {
         return Course::with(['department', 'instructor', 'semester', 'prerequisite'])->get();
@@ -74,11 +74,29 @@ Route::prefix('courses-module')->name('courses.')->group(function () {
 | Module 3: Student & Section Management (إدارة الطلاب والشعب) Hamza's part
 |--------------------------------------------------------------------------
 */
+<<<<<<< HEAD
 Route::prefix('students-module')->name('students.')->group(function () {
     Route::get('/dashboard', [StudentController::class, 'index'])->name('dashboard');
     Route::get('/', [StudentController::class, 'index'])->name('index');
     Route::get('/create', [StudentController::class, 'create'])->name('create');
     Route::post('/', [StudentController::class, 'store'])->name('store');
+=======
+Route::prefix('students-module')->name('students.')->middleware('department:3')->group(function () {
+    // Module 3 Dashboard
+    Route::get('/dashboard', function () {
+        return Student::with('department')->get();
+    })->name('dashboard');
+
+    // View Student Profile with Enrolled Sections, Attendance, and Grades
+    Route::get('/{id}', function ($id) {
+        return Student::with(['department', 'sections.course', 'attendances.lecture', 'grades.exam'])->findOrFail($id);
+    })->name('show');
+
+    // View Sections & Enrolled Students
+    Route::get('/sections/list', function () {
+        return Section::with(['course', 'instructor', 'semester', 'students'])->get();
+    })->name('sections');
+>>>>>>> 27fcdfab648fe664ead0b0efbcf59ebe2af03b5a
 });
 
 Route::prefix('students-module/sections')->name('sections.')->group(function () {
@@ -103,7 +121,7 @@ Route::prefix('students-module')->name('students.')->group(function () {
 | Module 4: Attendance & Lecture Management (تسجيل الحضور والغياب) Hussin's part
 |--------------------------------------------------------------------------
 */
-Route::prefix('attendance-module')->name('attendance.')->group(function () {
+Route::prefix('attendance-module')->name('attendance.')->middleware('department:4')->group(function () {
     // Module 4 Dashboard (Lectures List)
     Route::get('/dashboard', function () {
         return Lecture::with(['course', 'section', 'instructor'])->get();
@@ -125,7 +143,7 @@ Route::prefix('attendance-module')->name('attendance.')->group(function () {
 | Module 5: Exams & Grades Management (إدارة الامتحانات والدرجات) Ward's part
 |--------------------------------------------------------------------------
 */
-Route::prefix('exams-module')->name('exams.')->group(function () {
+Route::prefix('exams-module')->name('exams.')->middleware('department:5')->group(function () {
     // Module 5 Dashboard (Exams List)
     Route::get('/dashboard', function () {
         return Exam::with(['examType', 'course', 'section'])->get();
