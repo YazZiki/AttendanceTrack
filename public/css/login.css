@@ -1,0 +1,71 @@
+        :root {
+            --ec-bg: #faf8ff;
+            --ec-surface-low: #f2f3ff;
+            --ec-surface-container: #eaedff;
+            --ec-primary: #0037b0;
+            --ec-primary-hover: #1d4ed8;
+            --ec-primary-fixed: #dce1ff;
+            --ec-text-main: #131b2e;
+            --ec-text-muted: #434655;
+            --ec-outline: #747686;
+        }
+        body {
+            background-color: var(--ec-bg);
+            font-family: 'Inter', sans-serif;
+            color: var(--ec-text-main);
+            min-height: 100vh;
+        }
+        h1, h2, h3, .font-headline {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .material-symbols-outlined {
+            vertical-align: middle;
+            font-size: 20px;
+        }
+        .login-card {
+            background: #ffffff;
+            border: 1px solid var(--ec-surface-container);
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(19, 27, 46, 0.05);
+            overflow: hidden;
+        }
+        .login-brand-side {
+            background: linear-gradient(135deg, var(--ec-primary) 0%, var(--ec-primary-hover) 100%);
+            color: #ffffff;
+        }
+        .form-control-ec {
+            background-color: var(--ec-surface-low);
+            border: 1px solid transparent;
+            border-radius: 8px;
+            height: 44px;
+            padding-left: 42px;
+            font-size: 14px;
+            color: var(--ec-text-main);
+            transition: all 0.2s;
+        }
+        .form-control-ec:focus {
+            background-color: #ffffff;
+            border-color: var(--ec-primary);
+            box-shadow: 0 0 0 3px rgba(0, 55, 176, 0.15);
+            outline: none;
+        }
+        .btn-ec-primary {
+            background-color: var(--ec-primary);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            height: 44px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+        .btn-ec-primary:hover {
+            background-color: var(--ec-primary-hover);
+            color: #ffffff;
+        }
+        .badge-tier {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 600;
+        }

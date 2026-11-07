@@ -12,6 +12,8 @@ use App\Models\Lecture;
 use App\Models\Attendance;
 use App\Models\Exam;
 use App\Models\Grade;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,17 +25,11 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/login', function () {
-    return 'Unified Login Page (Username & Password)';
-})->name('login');
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 
-Route::post('/login', function () {
-    // Authentication logic will be moved to AuthController later
-})->name('login.submit');
+Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 
-Route::post('/logout', function () {
-    // Session destruction logic will be placed here
-})->name('logout');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 /*
@@ -43,19 +39,9 @@ Route::post('/logout', function () {
 */
 Route::prefix('users-module')->name('users.')->group(function () {
     // Module 1 Dashboard
-    Route::get('/dashboard', function () {
-        return User::with(['role', 'department'])->get();
-    })->name('dashboard');
-
-    // View Single User Details with Activities
-    Route::get('/{id}', function ($id) {
-        return User::with(['role', 'department', 'courses', 'sections', 'lectures'])->findOrFail($id);
-    })->name('show');
-
-    // Manage Roles & Permissions
-    Route::get('/roles/list', function () {
-        return Role::with('permissions')->get();
-    })->name('roles');
+    Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
+    Route::get('/{id}', [UserController::class, 'show'])->name('show');
+    Route::get('/roles/list', [UserController::class, 'roles'])->name('roles');
 });
 
 

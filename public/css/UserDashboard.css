@@ -1,0 +1,195 @@
+        :root {
+            --ec-bg: #faf8ff;
+            --ec-surface-lowest: #ffffff;
+            --ec-surface-low: #f2f3ff;
+            --ec-surface-container: #eaedff;
+            --ec-surface-high: #e2e7ff;
+            --ec-primary: #0037b0;
+            --ec-primary-container: #1d4ed8;
+            --ec-primary-fixed: #dce1ff;
+            --ec-on-primary-fixed: #001551;
+            --ec-secondary: #855300;
+            --ec-secondary-fixed: #ffddb8;
+            --ec-on-secondary-fixed: #2a1700;
+            --ec-tertiary: #004e47;
+            --ec-tertiary-fixed: #89f5e7;
+            --ec-on-tertiary-fixed: #00201d;
+            --ec-error: #ba1a1a;
+            --ec-error-container: #ffdad6;
+            --ec-on-error-container: #93000a;
+            --ec-on-surface: #131b2e;
+            --ec-on-surface-variant: #434655;
+            --ec-outline: #747686;
+        }
+
+        body {
+            background-color: var(--ec-bg);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: var(--ec-on-surface);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .font-headline {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .material-symbols-outlined {
+            vertical-align: middle;
+            line-height: 1;
+        }
+
+        /* Sidebar Layout */
+        .ec-sidebar {
+            width: 256px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: var(--ec-surface-low);
+            box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
+            z-index: 1040;
+        }
+
+        .ec-main-wrapper {
+            padding-left: 256px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ec-header {
+            height: 64px;
+            position: fixed;
+            top: 0;
+            left: 256px;
+            right: 0;
+            background-color: rgba(250, 248, 255, 0.85);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
+            z-index: 1030;
+        }
+
+        .ec-content {
+            padding-top: 88px;
+            padding-bottom: 32px;
+            flex: 1;
+        }
+
+        /* Nav Links */
+        .ec-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px;
+            border-radius: 8px;
+            color: var(--ec-on-surface-variant);
+            font-weight: 600;
+            font-size: 12px;
+            text-decoration: none;
+            transition: all 0.15s ease;
+        }
+        .ec-nav-link:hover {
+            background-color: var(--ec-surface-high);
+            color: var(--ec-on-surface);
+        }
+        .ec-nav-link.active {
+            background-color: var(--ec-primary-container);
+            color: #ffffff;
+        }
+
+        /* Cards & Inputs */
+        .ec-card {
+            background-color: var(--ec-surface-lowest);
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+        }
+
+        .ec-metric-value {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--ec-on-surface);
+        }
+
+        .ec-input, .ec-select {
+            background-color: var(--ec-surface-low);
+            border: 1px solid transparent;
+            border-radius: 8px;
+            height: 40px;
+            font-size: 14px;
+            color: var(--ec-on-surface);
+        }
+        .ec-input:focus, .ec-select:focus {
+            background-color: #ffffff;
+            border-color: var(--ec-primary);
+            box-shadow: 0 0 0 3px rgba(0, 55, 176, 0.15);
+            outline: none;
+        }
+
+        /* Custom Badges matching Stitch AI */
+        .badge-primary-fixed { background-color: var(--ec-primary-fixed); color: var(--ec-on-primary-fixed); }
+        .badge-secondary-fixed { background-color: var(--ec-secondary-fixed); color: var(--ec-on-secondary-fixed); }
+        .badge-tertiary-fixed { background-color: var(--ec-tertiary-fixed); color: var(--ec-on-tertiary-fixed); }
+        .badge-error-container { background-color: var(--ec-error-container); color: var(--ec-on-error-container); }
+        .badge-surface { background-color: var(--ec-surface-container); color: var(--ec-on-surface); }
+
+        .btn-ec-primary {
+            background-color: var(--ec-primary);
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 12px;
+            border-radius: 8px;
+            padding: 8px 16px;
+            border: none;
+        }
+        .btn-ec-primary:hover {
+            background-color: var(--ec-primary-container);
+            color: #ffffff;
+        }
+
+        .btn-ec-light {
+            background-color: var(--ec-surface-lowest);
+            color: var(--ec-on-surface);
+            font-weight: 600;
+            font-size: 12px;
+            border-radius: 8px;
+            padding: 8px 16px;
+            border: 1px solid var(--ec-surface-container);
+        }
+        .btn-ec-light:hover {
+            background-color: var(--ec-surface-high);
+        }
+
+        .table-ec thead th {
+            background-color: var(--ec-surface-low);
+            color: var(--ec-outline);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            border-bottom: none;
+            padding: 12px 16px;
+        }
+        .table-ec tbody td {
+            padding: 14px 16px;
+            vertical-align: middle;
+            border-bottom: 1px solid var(--ec-surface-container);
+        }
+        .table-ec tbody tr:hover {
+            background-color: rgba(242, 243, 255, 0.6);
+        }
+        .avatar-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 12px;
+            background-color: var(--ec-surface-high);
+            color: var(--ec-primary);
+        }
