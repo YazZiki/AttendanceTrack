@@ -1,6 +1,9 @@
 @extends('layouts.module')
 
 @section('title', $student->full_name)
+@section('module-name', 'Students & Sections')
+@section('module-number', 'Module 3')
+@section('active-students', 'active')
 
 @section('content')
     <div class="d-flex justify-content-between align-items-end gap-3 mb-4">

@@ -1,6 +1,9 @@
 @extends('layouts.module')
 
 @section('title', 'Edit Student')
+@section('module-name', 'Students & Sections')
+@section('module-number', 'Module 3')
+@section('active-students', 'active')
 
 @section('content')
     <div class="mb-4">

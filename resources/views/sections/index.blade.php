@@ -1,6 +1,9 @@
 @extends('layouts.module')
 
 @section('title', 'Sections')
+@section('module-name', 'Students & Sections')
+@section('module-number', 'Module 3')
+@section('active-students', 'active')
 
 @section('content')
 <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between gap-3 mb-4"><div><div class="text-uppercase fw-semibold mb-1" style="font-size: 11px; color: var(--ec-primary);">Academic Structure</div><h1 class="font-headline fw-bold fs-3 mb-1">Sections</h1><p class="mb-0" style="color: var(--ec-on-surface-variant);">Manage course sections and enrolled students.</p></div><div class="d-flex gap-2"><a href="{{ route('students.dashboard') }}" class="btn btn-ec-light">View Students</a><a href="{{ route('students.sections.create') }}" class="btn btn-ec-primary">Add Section</a></div></div>

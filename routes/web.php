@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
@@ -50,23 +51,20 @@ Route::prefix('users-module')->name('users.')->middleware('department:1')->group
 |--------------------------------------------------------------------------
 */
 Route::prefix('courses-module')->name('courses.')->middleware('department:2')->group(function () {
-    // Module 2 Dashboard
-    Route::get('/dashboard', function () {
-        return Course::with(['department', 'instructor', 'semester', 'prerequisite'])->get();
-    })->name('dashboard');
-
-    // View Single Course with its Sections and Lectures
-    Route::get('/{id}', function ($id) {
-        return Course::with(['department', 'instructor', 'semester', 'sections', 'lectures'])->findOrFail($id);
-    })->name('show');
-
-    // Manage Departments & Semesters
+    Route::get('/dashboard', [CourseController::class, 'index'])->name('dashboard');
+    Route::get('/', [CourseController::class, 'index'])->name('index');
+    Route::get('/create', [CourseController::class, 'create'])->name('create');
+    Route::post('/', [CourseController::class, 'store'])->name('store');
     Route::get('/departments/list', function () {
         return [
             'departments' => Department::all(),
             'semesters' => Semester::all(),
         ];
     })->name('departments');
+    Route::get('/{course}', [CourseController::class, 'show'])->name('show');
+    Route::get('/{course}/edit', [CourseController::class, 'edit'])->name('edit');
+    Route::put('/{course}', [CourseController::class, 'update'])->name('update');
+    Route::delete('/{course}', [CourseController::class, 'destroy'])->name('destroy');
 });
 
 /*
@@ -74,22 +72,39 @@ Route::prefix('courses-module')->name('courses.')->middleware('department:2')->g
 | Module 3: Student & Section Management (إدارة الطلاب والشعب) Hamza's part
 |--------------------------------------------------------------------------
 */
-Route::prefix('students-module')->name('students.')->middleware('department:3')->group(function () {
-    // Dashboard & Student Resource Routes
+<<<<<<< HEAD
+Route::prefix('students-module')->name('students.')->group(function () {
     Route::get('/dashboard', [StudentController::class, 'index'])->name('dashboard');
     Route::get('/create', [StudentController::class, 'create'])->name('create');
     Route::post('/', [StudentController::class, 'store'])->name('store');
+=======
+Route::prefix('students-module')->name('students.')->middleware('department:3')->group(function () {
+    // Module 3 Dashboard
+    Route::get('/dashboard', function () {
+        return Student::with('department')->get();
+    })->name('dashboard');
 
-    // Sections sub-group inside Students Module
-    Route::prefix('sections')->name('sections.')->group(function () {
-        Route::get('/', [SectionController::class, 'index'])->name('index');
-        Route::get('/create', [SectionController::class, 'create'])->name('create');
-        Route::post('/', [SectionController::class, 'store'])->name('store');
-        Route::get('/{section}', [SectionController::class, 'show'])->name('show');
-        Route::get('/{section}/edit', [SectionController::class, 'edit'])->name('edit');
-        Route::put('/{section}', [SectionController::class, 'update'])->name('update');
-        Route::delete('/{section}', [SectionController::class, 'destroy'])->name('destroy');
-    });
+    // View Student Profile with Enrolled Sections, Attendance, and Grades
+    Route::get('/{id}', function ($id) {
+        return Student::with(['department', 'sections.course', 'attendances.lecture', 'grades.exam'])->findOrFail($id);
+    })->name('show');
+
+    // View Sections & Enrolled Students
+    Route::get('/sections/list', function () {
+        return Section::with(['course', 'instructor', 'semester', 'students'])->get();
+    })->name('sections');
+>>>>>>> 27fcdfab648fe664ead0b0efbcf59ebe2af03b5a
+});
+
+Route::prefix('students-module/sections')->name('sections.')->group(function () {
+    Route::get('/', [SectionController::class, 'index'])->name('index');
+    Route::get('/create', [SectionController::class, 'create'])->name('create');
+    Route::post('/', [SectionController::class, 'store'])->name('store');
+    Route::get('/{section}', [SectionController::class, 'show'])->name('show');
+    Route::get('/{section}/edit', [SectionController::class, 'edit'])->name('edit');
+    Route::put('/{section}', [SectionController::class, 'update'])->name('update');
+    Route::delete('/{section}', [SectionController::class, 'destroy'])->name('destroy');
+});
 
     // Individual Student Actions (Must be below static routes like /create or /sections)
     Route::get('/{student}', [StudentController::class, 'show'])->name('show');
