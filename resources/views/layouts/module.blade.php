@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>@yield('title', 'Students & Sections') - AttendanceTrack</title>
+    <title>@yield('title', 'Academic Module') - AttendanceTrack</title>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet"/>
@@ -23,8 +23,8 @@
         </div>
         <nav class="d-flex flex-column gap-1 px-3">
             <a href="{{ route('users.dashboard') }}" class="ec-nav-link"><span class="material-symbols-outlined">group</span><span>User Management</span></a>
-            <a href="{{ route('courses.dashboard') }}" class="ec-nav-link"><span class="material-symbols-outlined">menu_book</span><span>Classrooms & Courses</span></a>
-            <a href="{{ route('students.dashboard') }}" class="ec-nav-link active"><span class="material-symbols-outlined">badge</span><span>Students & Sections</span></a>
+            <a href="{{ route('courses.dashboard') }}" class="ec-nav-link @yield('active-module')"><span class="material-symbols-outlined">menu_book</span><span>Classrooms & Courses</span></a>
+            <a href="{{ route('students.dashboard') }}" class="ec-nav-link @yield('active-students')"><span class="material-symbols-outlined">badge</span><span>Students & Sections</span></a>
             <a href="{{ route('attendance.dashboard') }}" class="ec-nav-link"><span class="material-symbols-outlined">fact_check</span><span>Attendance & Lectures</span></a>
             <a href="{{ route('exams.dashboard') }}" class="ec-nav-link"><span class="material-symbols-outlined">grading</span><span>Exams & Grades</span></a>
         </nav>
@@ -43,8 +43,8 @@
 </aside>
 <div class="ec-main-wrapper">
     <header class="ec-header d-flex align-items-center justify-content-between px-4">
-        <span class="fw-semibold">Students & Sections</span>
-        <span class="badge badge-surface">Module 3</span>
+        <span class="fw-semibold">@yield('module-name', 'Academic Module')</span>
+        <span class="badge badge-surface">@yield('module-number', 'Module')</span>
     </header>
     <main class="ec-content container-fluid px-4">
         @if (session('success'))

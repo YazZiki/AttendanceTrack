@@ -1,6 +1,9 @@
 @extends('layouts.module')
 
 @section('title', $student->full_name)
+@section('module-name', 'Students & Sections')
+@section('module-number', 'Module 3')
+@section('active-students', 'active')
 
 @section('content')
 <div class="d-flex justify-content-between align-items-end gap-3 mb-4"><div><div class="text-uppercase fw-semibold mb-1" style="font-size: 11px; color: var(--ec-primary);">Student Profile</div><h1 class="font-headline fw-bold fs-3 mb-1">{{ $student->full_name }}</h1></div><div class="d-flex gap-2"><a href="{{ route('students.edit', $student) }}" class="btn btn-ec-primary">Edit</a><a href="{{ route('students.index') }}" class="btn btn-ec-light">Back</a></div></div>

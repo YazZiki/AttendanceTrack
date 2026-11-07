@@ -19,6 +19,10 @@ class Course extends Model
         'status',
     ];
 
+    protected $casts = [
+        'credit_hours' => 'integer',
+    ];
+
     public function department()
     {
         return $this->belongsTo(Department::class);
