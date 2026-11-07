@@ -1,19 +1,20 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Models\User;
-use App\Models\Role;
-use App\Models\Department;
-use App\Models\Course;
-use App\Models\Semester;
-use App\Models\Student;
-use App\Models\Section;
-use App\Models\Lecture;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SectionController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\UserController;
 use App\Models\Attendance;
+use App\Models\Course;
+use App\Models\Department;
 use App\Models\Exam;
 use App\Models\Grade;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
+use App\Models\Lecture;
+use App\Models\Section;
+use App\Models\Semester;
+use App\Models\Student;
+use App\Models\User;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +32,6 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-
 /*
 |--------------------------------------------------------------------------
 | Module 1: User & Permission Management (إدارة المستخدمين والصلاحيات) Yazan's part
@@ -43,7 +43,6 @@ Route::prefix('users-module')->name('users.')->group(function () {
     Route::get('/{id}', [UserController::class, 'show'])->name('show');
     Route::get('/roles/list', [UserController::class, 'roles'])->name('roles');
 });
-
 
 /*
 |--------------------------------------------------------------------------
@@ -65,11 +64,10 @@ Route::prefix('courses-module')->name('courses.')->group(function () {
     Route::get('/departments/list', function () {
         return [
             'departments' => Department::all(),
-            'semesters'   => Semester::all(),
+            'semesters' => Semester::all(),
         ];
     })->name('departments');
 });
-
 
 /*
 |--------------------------------------------------------------------------
@@ -77,22 +75,28 @@ Route::prefix('courses-module')->name('courses.')->group(function () {
 |--------------------------------------------------------------------------
 */
 Route::prefix('students-module')->name('students.')->group(function () {
-    // Module 3 Dashboard
-    Route::get('/dashboard', function () {
-        return Student::with('department')->get();
-    })->name('dashboard');
-
-    // View Student Profile with Enrolled Sections, Attendance, and Grades
-    Route::get('/{id}', function ($id) {
-        return Student::with(['department', 'sections.course', 'attendances.lecture', 'grades.exam'])->findOrFail($id);
-    })->name('show');
-
-    // View Sections & Enrolled Students
-    Route::get('/sections/list', function () {
-        return Section::with(['course', 'instructor', 'semester', 'students'])->get();
-    })->name('sections');
+    Route::get('/dashboard', [StudentController::class, 'index'])->name('dashboard');
+    Route::get('/', [StudentController::class, 'index'])->name('index');
+    Route::get('/create', [StudentController::class, 'create'])->name('create');
+    Route::post('/', [StudentController::class, 'store'])->name('store');
 });
 
+Route::prefix('students-module/sections')->name('sections.')->group(function () {
+    Route::get('/', [SectionController::class, 'index'])->name('index');
+    Route::get('/create', [SectionController::class, 'create'])->name('create');
+    Route::post('/', [SectionController::class, 'store'])->name('store');
+    Route::get('/{section}', [SectionController::class, 'show'])->name('show');
+    Route::get('/{section}/edit', [SectionController::class, 'edit'])->name('edit');
+    Route::put('/{section}', [SectionController::class, 'update'])->name('update');
+    Route::delete('/{section}', [SectionController::class, 'destroy'])->name('destroy');
+});
+
+Route::prefix('students-module')->name('students.')->group(function () {
+    Route::get('/{student}', [StudentController::class, 'show'])->name('show');
+    Route::get('/{student}/edit', [StudentController::class, 'edit'])->name('edit');
+    Route::put('/{student}', [StudentController::class, 'update'])->name('update');
+    Route::delete('/{student}', [StudentController::class, 'destroy'])->name('destroy');
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -115,7 +119,6 @@ Route::prefix('attendance-module')->name('attendance.')->group(function () {
         return Attendance::with(['lecture', 'student'])->get();
     })->name('records');
 });
-
 
 /*
 |--------------------------------------------------------------------------

@@ -11,9 +11,6 @@ class Section extends Model
     protected $fillable = [
         'section_name',
         'course_id',
-        'instructor_id',
-        'semester_id',
-        'capacity',
     ];
 
     public function course()
@@ -39,7 +36,7 @@ class Section extends Model
     public function students()
     {
         return $this->belongsToMany(Student::class, 'student_section')
-                    ->withPivot('id', 'registration_date', 'created_at');
+            ->withPivot('id', 'registration_date', 'created_at');
     }
 
     public function lectures()

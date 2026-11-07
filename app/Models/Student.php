@@ -10,13 +10,8 @@ class Student extends Model
         'full_name',
         'university_id',
         'national_id',
-        'birth_date',
-        'phone',
-        'email',
-        'department_id',
-        'academic_year',
-        'photo',
-        'status',
+        'major',
+        'year',
     ];
 
     public function department()
@@ -34,7 +29,7 @@ class Student extends Model
     public function sections()
     {
         return $this->belongsToMany(Section::class, 'student_section')
-                    ->withPivot('id', 'registration_date', 'created_at');
+            ->withPivot('id', 'registration_date', 'created_at');
     }
 
     public function attendances()
