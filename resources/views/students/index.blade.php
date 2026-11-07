@@ -24,8 +24,8 @@
                     <td class="fw-semibold">{{ $student->full_name }}</td>
                     <td>{{ $student->university_id }}</td>
                     <td>{{ $student->national_id }}</td>
-                    <td>{{ $student->major }}</td>
-                    <td>{{ $student->year }}</td>
+                    <td>{{ $student->department?->department_name ?? 'N/A' }}</td>
+                    <td>{{ $student->academic_year }}</td>
                     <td class="text-end">
                         <a href="{{ route('students.show', $student) }}" class="btn btn-sm btn-ec-light">View</a>
                         <a href="{{ route('students.edit', $student) }}" class="btn btn-sm btn-ec-light">Edit</a>
