@@ -11,6 +11,9 @@ class Section extends Model
     protected $fillable = [
         'section_name',
         'course_id',
+        'instructor_id',
+        'semester_id',
+        'capacity',
     ];
 
     public function course()

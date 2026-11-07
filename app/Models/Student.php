@@ -10,8 +10,16 @@ class Student extends Model
         'full_name',
         'university_id',
         'national_id',
-        'major',
-        'year',
+        'birth_date',
+        'phone',
+        'email',
+        'department_id',
+        'academic_year',
+        'photo',
+        'status',
+    ];
+    protected $casts = [
+        'birth_date' => 'date',
     ];
 
     public function department()
@@ -19,13 +27,11 @@ class Student extends Model
         return $this->belongsTo(Department::class);
     }
 
-    // Direct access to the enrollment records
     public function enrollments()
     {
         return $this->hasMany(StudentSection::class);
     }
 
-    // Many-to-many access to sections with registration_date
     public function sections()
     {
         return $this->belongsToMany(Section::class, 'student_section')

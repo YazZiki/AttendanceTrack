@@ -72,11 +72,28 @@ Route::prefix('courses-module')->name('courses.')->middleware('department:2')->g
 | Module 3: Student & Section Management (إدارة الطلاب والشعب) Hamza's part
 |--------------------------------------------------------------------------
 */
+<<<<<<< HEAD
 Route::prefix('students-module')->name('students.')->group(function () {
     Route::get('/dashboard', [StudentController::class, 'index'])->name('dashboard');
-    Route::get('/', [StudentController::class, 'index'])->name('index');
     Route::get('/create', [StudentController::class, 'create'])->name('create');
     Route::post('/', [StudentController::class, 'store'])->name('store');
+=======
+Route::prefix('students-module')->name('students.')->middleware('department:3')->group(function () {
+    // Module 3 Dashboard
+    Route::get('/dashboard', function () {
+        return Student::with('department')->get();
+    })->name('dashboard');
+
+    // View Student Profile with Enrolled Sections, Attendance, and Grades
+    Route::get('/{id}', function ($id) {
+        return Student::with(['department', 'sections.course', 'attendances.lecture', 'grades.exam'])->findOrFail($id);
+    })->name('show');
+
+    // View Sections & Enrolled Students
+    Route::get('/sections/list', function () {
+        return Section::with(['course', 'instructor', 'semester', 'students'])->get();
+    })->name('sections');
+>>>>>>> 27fcdfab648fe664ead0b0efbcf59ebe2af03b5a
 });
 
 Route::prefix('students-module/sections')->name('sections.')->group(function () {
@@ -89,7 +106,7 @@ Route::prefix('students-module/sections')->name('sections.')->group(function () 
     Route::delete('/{section}', [SectionController::class, 'destroy'])->name('destroy');
 });
 
-Route::prefix('students-module')->name('students.')->group(function () {
+    // Individual Student Actions (Must be below static routes like /create or /sections)
     Route::get('/{student}', [StudentController::class, 'show'])->name('show');
     Route::get('/{student}/edit', [StudentController::class, 'edit'])->name('edit');
     Route::put('/{student}', [StudentController::class, 'update'])->name('update');

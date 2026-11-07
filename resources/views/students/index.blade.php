@@ -13,7 +13,7 @@
         <p class="mb-0" style="color: var(--ec-on-surface-variant);">Manage registered students and their academic information.</p>
     </div>
     <div class="d-flex gap-2">
-        <a href="{{ route('sections.index') }}" class="btn btn-ec-light">View Sections</a>
+        <a href="{{ route('students.sections.index') }}" class="btn btn-ec-light">View Sections</a>
         <a href="{{ route('students.create') }}" class="btn btn-ec-primary"><span class="material-symbols-outlined me-1" style="font-size: 18px;">add</span>Add Student</a>
     </div>
 </div>
