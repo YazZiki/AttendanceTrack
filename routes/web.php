@@ -39,10 +39,17 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 |--------------------------------------------------------------------------
 */
 Route::prefix('users-module')->name('users.')->middleware('department:1')->group(function () {
-    // Module 1 Dashboard
+    // 1. Static Routes (Must be FIRST)
     Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
-    Route::get('/{id}', [UserController::class, 'show'])->name('show');
+    Route::get('/create', [UserController::class, 'create'])->name('create');
+    Route::post('/', [UserController::class, 'store'])->name('store');
     Route::get('/roles/list', [UserController::class, 'roles'])->name('roles');
+
+    // 2. Dynamic Routes (Must be AFTER static routes)
+    Route::get('/{user}', [UserController::class, 'show'])->name('show');
+    Route::get('/{user}/edit', [UserController::class, 'edit'])->name('edit');
+    Route::put('/{user}', [UserController::class, 'update'])->name('update');
+    Route::delete('/{user}', [UserController::class, 'destroy'])->name('destroy');
 });
 
 /*
