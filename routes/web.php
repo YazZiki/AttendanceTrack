@@ -6,6 +6,8 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ExamController;
+use App\Http\Controllers\GradeController;
 use App\Models\Attendance;
 use App\Models\Course;
 use App\Models\Department;
@@ -136,18 +138,19 @@ Route::prefix('attendance-module')->name('attendance.')->middleware('department:
 |--------------------------------------------------------------------------
 */
 Route::prefix('exams-module')->name('exams.')->middleware('department:5')->group(function () {
-    // Module 5 Dashboard (Exams List)
-    Route::get('/dashboard', function () {
-        return Exam::with(['examType', 'course', 'section'])->get();
-    })->name('dashboard');
+    
+    // 1. Static Routes (Must be FIRST)
+    Route::get('/dashboard', [ExamController::class, 'index'])->name('dashboard');
+    Route::get('/create', [ExamController::class, 'create'])->name('create');
+    Route::post('/', [ExamController::class, 'store'])->name('store');
+    Route::get('/grades/report', [GradeController::class, 'report'])->name('grades.report');
 
-    // View Single Exam with Student Grades
-    Route::get('/{id}', function ($id) {
-        return Exam::with(['examType', 'course', 'section', 'grades.student'])->findOrFail($id);
-    })->name('show');
+    // 2. Grade Entry Route
+    Route::post('/{exam}/grades', [GradeController::class, 'storeOrUpdate'])->name('grades.store');
 
-    // Final Grades Report
-    Route::get('/grades/report', function () {
-        return Grade::with(['student', 'exam.course', 'exam.examType'])->get();
-    })->name('grades.report');
+    // 3. Dynamic Exam Routes (Must be AFTER static routes)
+    Route::get('/{exam}', [ExamController::class, 'show'])->name('show');
+    Route::get('/{exam}/edit', [ExamController::class, 'edit'])->name('edit');
+    Route::put('/{exam}', [ExamController::class, 'update'])->name('update');
+    Route::delete('/{exam}', [ExamController::class, 'destroy'])->name('destroy');
 });
