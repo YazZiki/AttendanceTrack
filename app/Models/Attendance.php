@@ -17,6 +17,10 @@ class Attendance extends Model
         'recorded_at',
     ];
 
+    protected $casts = [
+        'recorded_at' => 'datetime',
+    ];
+
     public function lecture()
     {
         return $this->belongsTo(Lecture::class);

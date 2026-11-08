@@ -25,7 +25,7 @@
             <a href="{{ route('users.dashboard') }}" class="ec-nav-link"><span class="material-symbols-outlined">group</span><span>User Management</span></a>
             <a href="{{ route('courses.dashboard') }}" class="ec-nav-link @yield('active-module')"><span class="material-symbols-outlined">menu_book</span><span>Classrooms & Courses</span></a>
             <a href="{{ route('students.dashboard') }}" class="ec-nav-link @yield('active-students')"><span class="material-symbols-outlined">badge</span><span>Students & Sections</span></a>
-            <a href="{{ route('attendance.dashboard') }}" class="ec-nav-link"><span class="material-symbols-outlined">fact_check</span><span>Attendance & Lectures</span></a>
+            <a href="{{ route('attendance.dashboard') }}" class="ec-nav-link @yield('active-attendance')"><span class="material-symbols-outlined">fact_check</span><span>Attendance & Lectures</span></a>
             <a href="{{ route('exams.dashboard') }}" class="ec-nav-link"><span class="material-symbols-outlined">grading</span><span>Exams & Grades</span></a>
         </nav>
     </div>

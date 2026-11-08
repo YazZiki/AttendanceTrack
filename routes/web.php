@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\StudentController;
@@ -113,20 +114,20 @@ Route::prefix('students-module')->name('students.')->middleware('department:3')-
 |--------------------------------------------------------------------------
 */
 Route::prefix('attendance-module')->name('attendance.')->middleware('department:4')->group(function () {
-    // Module 4 Dashboard (Lectures List)
-    Route::get('/dashboard', function () {
-        return Lecture::with(['course', 'section', 'instructor'])->get();
-    })->name('dashboard');
-
-    // View Single Lecture Details with Attendance Sheet
-    Route::get('/lectures/{id}', function ($id) {
-        return Lecture::with(['course', 'section', 'instructor', 'attendances.student'])->findOrFail($id);
-    })->name('lectures.show');
-
-    // Attendance Records List
-    Route::get('/records', function () {
-        return Attendance::with(['lecture', 'student'])->get();
-    })->name('records');
+    Route::get('/dashboard', [AttendanceController::class, 'index'])->name('dashboard');
+    Route::get('/lectures/create', [AttendanceController::class, 'create'])->name('lectures.create');
+    Route::post('/lectures', [AttendanceController::class, 'store'])->name('lectures.store');
+    Route::get('/lectures/{lecture}', [AttendanceController::class, 'show'])->name('lectures.show');
+    Route::get('/lectures/{lecture}/edit', [AttendanceController::class, 'edit'])->name('lectures.edit');
+    Route::put('/lectures/{lecture}', [AttendanceController::class, 'update'])->name('lectures.update');
+    Route::delete('/lectures/{lecture}', [AttendanceController::class, 'destroy'])->name('lectures.destroy');
+    Route::get('/records', [AttendanceController::class, 'records'])->name('records.index');
+    Route::get('/records/create', [AttendanceController::class, 'createRecord'])->name('records.create');
+    Route::post('/records', [AttendanceController::class, 'storeRecord'])->name('records.store');
+    Route::get('/records/{record}', [AttendanceController::class, 'showRecord'])->name('records.show');
+    Route::get('/records/{record}/edit', [AttendanceController::class, 'editRecord'])->name('records.edit');
+    Route::put('/records/{record}', [AttendanceController::class, 'updateRecord'])->name('records.update');
+    Route::delete('/records/{record}', [AttendanceController::class, 'destroyRecord'])->name('records.destroy');
 });
 
 /*

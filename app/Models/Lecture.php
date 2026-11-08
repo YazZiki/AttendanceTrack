@@ -9,11 +9,15 @@ class Lecture extends Model
     protected $fillable = [
         'title',
         'lecture_date',
-        'lecture_time',
-        'duration',
         'section_id',
         'course_id',
         'instructor_id',
+        'lecture_time',
+        'duration',
+    ];
+
+    protected $casts = [
+        'lecture_date' => 'date',
     ];
 
     public function section()
